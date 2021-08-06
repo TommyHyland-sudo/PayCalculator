@@ -11,18 +11,28 @@ import java.util.ArrayList;
 
 public class CSVWriter {
 	
+	private boolean testForNull = false;
+	
 	public CSVWriter(String fileName, ArrayList<String> dataToWrite) {
-		try {
-			//Saves to the src/paymentcalc folder
-			FileWriter writer = new FileWriter(new File("src/paymentcalc", fileName));
-			for (String line : dataToWrite){
-				writer.append(line + "\n");
+		if (dataToWrite != null) {
+			try {
+				//Saves to the src/paymentcalc folder
+				FileWriter writer = new FileWriter(new File("src/paymentcalc", fileName));
+				for (String line : dataToWrite){
+					writer.append(line + "\n");
+				}
+				//Close and flush to avoid data corruption if crash occurs.
+				writer.flush();
+				writer.close();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-			//Close and flush to avoid data corruption if crash occurs.
-			writer.flush();
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} else {
+			testForNull = true;
 		}
+	}
+	
+	public boolean NullTest() {
+		return testForNull;
 	}
 }
