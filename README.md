@@ -12,6 +12,8 @@ Java exercise to calculate costs based on CSV files. Runs on Java 14, developmen
       b. If you type "N" then hit enter, the program will safely stop.
   
       c. If you do anything else and press enter, the program will loop and you'll need to input either y/n again.
+      
+4. After either step a or b, the program will close.
 
 # Assumptions
 - The CSV files are only to be processed when given the strict format of fname, lname, salary, super, and initial payment, I've added some handling to process incomplete CSV files but additional or less information that outlined won't process.
