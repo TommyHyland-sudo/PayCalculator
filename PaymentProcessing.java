@@ -1,5 +1,9 @@
 package paymentcalc;
 
+/*
+ * This file is used to process gross income, income tax, net income, super income and produce a CSV formatted output name, data of payment and values mentioned
+ */
+
 public class PaymentProcessing {
 
 	private String fName;
@@ -12,9 +16,10 @@ public class PaymentProcessing {
 	private double incomeTax;
 	private int incomeOutput;
 	private int superIncome;
-	public String lineOutput;
+	private String lineOutput;
 	
 	public PaymentProcessing(String _fName, String _lName, int _annualSal, int _superRate, String _initPayment){
+		//Store the input values
 		fName = _fName;
 		lName = _lName;
 		annualSal = _annualSal;
@@ -24,9 +29,11 @@ public class PaymentProcessing {
 		Calculation();
 	}
 	
+	//Run the necessary calculations and output the needed values in a string with values separated by commas
 	public void Calculation() {
 		grossIncome = Math.round(annualSal/12);
 		
+		//Calculate tax based on different salary range rules
 		incomeTax = 0;
 		if (annualSal <= 18200) {
 			incomeTax = 0;
@@ -40,16 +47,18 @@ public class PaymentProcessing {
 			incomeTax = Math.round((54232 + (annualSal - 180001) * 0.45)/12);
 		}
 		
+		//Used to convert the rounded value from a double back to an integer
 		incomeOutput = (int) incomeTax;
+		
 		netIncome = grossIncome - incomeOutput;
 		
 		superIncome = Math.round(((grossIncome*superRate)/100));
 		
-		System.out.println(initPayment);
+		//Ready to be written into a CSV
 		lineOutput = fName + " " + lName + "," + initPayment + "," + grossIncome + "," + incomeOutput + "," + netIncome + "," + superIncome;
-		System.out.println(lineOutput);
 	}	
 	
+	//Get for calculations
 	public String LineOutput() {
 		return lineOutput;
 	}
